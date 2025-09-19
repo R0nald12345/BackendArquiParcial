@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/D:/Archivos%20UAGRM/Avance%20Semestre/Semestre9/ArquitecturaSoftware/Avance2-2025/ServicioCategoriaProducto/src/ServicioRegistroProducto/negocio/ProductoN.java</file>
+            <file>file:/D:/Archivos%20UAGRM/Avance%20Semestre/Semestre9/ArquitecturaSoftware/Avance2-2025/ServicioCategoriaProducto/src/ServicioRegistroCategoria/negocio/CategoriaN.java</file>
+            <file>file:/D:/Archivos%20UAGRM/Avance%20Semestre/Semestre9/ArquitecturaSoftware/Avance2-2025/ServicioCategoriaProducto/src/ServicioRegistroCategoria/negocio/controller/CategoriaServidor.java</file>
+            <file>file:/D:/Archivos%20UAGRM/Avance%20Semestre/Semestre9/ArquitecturaSoftware/Avance2-2025/ServicioCategoriaProducto/src/ServicioCliente/negocio/controller/ClienteController.java</file>
+            <file>file:/D:/Archivos%20UAGRM/Avance%20Semestre/Semestre9/ArquitecturaSoftware/Avance2-2025/ServicioCategoriaProducto/src/ServicioRegistroCategoria/negocio/controller/CategoriaController.java</file>
+            <file>file:/D:/Archivos%20UAGRM/Avance%20Semestre/Semestre9/ArquitecturaSoftware/Avance2-2025/ServicioCategoriaProducto/src/ServicioVenta/datos/entidades/DetalleVenta.java</file>
+            <file>file:/D:/Archivos%20UAGRM/Avance%20Semestre/Semestre9/ArquitecturaSoftware/Avance2-2025/ServicioCategoriaProducto/src/ServicioVenta/negocio/controller/DetalleVentaController.java</file>
+            <file>file:/D:/Archivos%20UAGRM/Avance%20Semestre/Semestre9/ArquitecturaSoftware/Avance2-2025/ServicioCategoriaProducto/src/ServicioRegistroProducto/negocio/controller/ProductoController.java</file>
+            <file>file:/D:/Archivos%20UAGRM/Avance%20Semestre/Semestre9/ArquitecturaSoftware/Avance2-2025/ServicioCategoriaProducto/src/ServicioVenta/datos/Conexion.java</file>
+            <file>file:/D:/Archivos%20UAGRM/Avance%20Semestre/Semestre9/ArquitecturaSoftware/Avance2-2025/ServicioCategoriaProducto/src/ServiciosMetodoPago/negocio/controller/MetodoPagoController.java</file>
+            <file>file:/D:/Archivos%20UAGRM/Avance%20Semestre/Semestre9/ArquitecturaSoftware/Avance2-2025/ServicioCategoriaProducto/src/ServicioVenta/datos/DetalleVentaDao.java</file>
+            <file>file:/D:/Archivos%20UAGRM/Avance%20Semestre/Semestre9/ArquitecturaSoftware/Avance2-2025/ServicioCategoriaProducto/src/ServicioVenta/negocio/controller/DetalleVentaServidor.java</file>
+            <file>file:/D:/Archivos%20UAGRM/Avance%20Semestre/Semestre9/ArquitecturaSoftware/Avance2-2025/ServicioCategoriaProducto/src/ServicioRegistroCategoria/datos/CategoriaDao.java</file>
+            <file>file:/D:/Archivos%20UAGRM/Avance%20Semestre/Semestre9/ArquitecturaSoftware/Avance2-2025/ServicioCategoriaProducto/src/ServicioRegistroCategoria/datos/entidades/Categoria.java</file>
+            <file>file:/D:/Archivos%20UAGRM/Avance%20Semestre/Semestre9/ArquitecturaSoftware/Avance2-2025/ServicioCategoriaProducto/src/ServicioCliente/datos/entidades/Cliente.java</file>
+            <file>file:/D:/Archivos%20UAGRM/Avance%20Semestre/Semestre9/ArquitecturaSoftware/Avance2-2025/ServicioCategoriaProducto/src/ServicioRegistroProducto/negocio/controller/ProductoServidor.java</file>
+            <file>file:/D:/Archivos%20UAGRM/Avance%20Semestre/Semestre9/ArquitecturaSoftware/Avance2-2025/ServicioCategoriaProducto/src/ServicioRegistroProducto/datos/Conexion.java</file>
+            <file>file:/D:/Archivos%20UAGRM/Avance%20Semestre/Semestre9/ArquitecturaSoftware/Avance2-2025/ServicioCategoriaProducto/src/ServicioCliente/negocio/controller/ClienteServidor.java</file>
+            <file>file:/D:/Archivos%20UAGRM/Avance%20Semestre/Semestre9/ArquitecturaSoftware/Avance2-2025/ServicioCategoriaProducto/src/ServicioRegistroProducto/datos/entidades/Producto.java</file>
+            <file>file:/D:/Archivos%20UAGRM/Avance%20Semestre/Semestre9/ArquitecturaSoftware/Avance2-2025/ServicioCategoriaProducto/src/ServicioVenta/negocio/DetalleVentaN.java</file>
+            <file>file:/D:/Archivos%20UAGRM/Avance%20Semestre/Semestre9/ArquitecturaSoftware/Avance2-2025/ServicioCategoriaProducto/src/ServicioRegistroProducto/datos/ProductoDao.java</file>
+            <file>file:/D:/Archivos%20UAGRM/Avance%20Semestre/Semestre9/ArquitecturaSoftware/Avance2-2025/ServicioCategoriaProducto/src/ServiciosMetodoPago/negocio/controller/MetodoPagoServidor.java</file>
+        </group>
+    </open-files>
+</project-private>
