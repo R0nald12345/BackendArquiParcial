@@ -4,6 +4,7 @@ import ServicioPedido.datos.PedidoDao;
 import ServicioPedido.datos.DetallePedidoDao;
 import ServicioPedido.datos.entidades.Pedido;
 import ServicioPedido.datos.entidades.DetallePedido;
+import ServicioPedido.datos.entidades.PedidoResponse;
 import java.util.List;
 
 /**
@@ -27,14 +28,24 @@ public class PedidoN {
         return false;
     }
 
-    public Pedido obtenerPedido(int id) throws Exception {
-        Pedido pedido = pedidoDao.obtenerPorId(id);
-        if (pedido != null) {
-            List<DetallePedido> detalles = detalleDao.listarPorPedido(id);
-            // acá no lo guardo dentro del objeto Pedido, solo lo retorno aparte si querés
-        }
-        return pedido;
+   public PedidoResponse obtenerPedido(int id) throws Exception {
+    Pedido pedido = pedidoDao.obtenerPorId(id);
+    if (pedido != null) {
+        List<DetallePedido> detalles = detalleDao.listarPorPedido(id);
+
+        PedidoResponse response = new PedidoResponse();
+        response.setId(pedido.getId());
+        response.setFecha(pedido.getFecha());
+        response.setMonto(pedido.getMonto());
+        response.setClienteId(pedido.getClienteId());
+        response.setRepartidorId(pedido.getRepartidorId());
+        response.setMetodoPagoId(pedido.getMetodoPagoId());
+        response.setDetalles(detalles);
+
+        return response;
     }
+    return null;
+}
 
     public List<Pedido> listarPedidos() throws Exception {
         return pedidoDao.listar();
@@ -56,4 +67,6 @@ public class PedidoN {
     public boolean eliminarPedido(int id) throws Exception {
         return pedidoDao.eliminar(id);
     }
+
+  
 }

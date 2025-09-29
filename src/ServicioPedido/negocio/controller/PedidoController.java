@@ -6,6 +6,7 @@ import ServicioPedido.negocio.PedidoN;
 import ServicioPedido.datos.entidades.Pedido;
 import ServicioPedido.datos.entidades.DetallePedido;
 import ServicioPedido.datos.entidades.PedidoRequest;
+import ServicioPedido.datos.entidades.PedidoResponse;
 import com.google.gson.Gson;
 import java.io.OutputStream;
 import java.io.InputStreamReader;
@@ -16,6 +17,7 @@ public class PedidoController {
 
     // Handler para /pedidos (GET listar, POST crear)
     public static class PedidoHandler implements HttpHandler {
+
         @Override
         public void handle(HttpExchange exchange) {
             try {
@@ -46,6 +48,7 @@ public class PedidoController {
 
     // Handler para /pedidos/{id} (GET, PUT, DELETE)
     public static class PedidoIdHandler implements HttpHandler {
+
         @Override
         public void handle(HttpExchange exchange) {
             try {
@@ -62,9 +65,9 @@ public class PedidoController {
 
                 switch (exchange.getRequestMethod()) {
                     case "GET":
-                        Pedido pedido = service.obtenerPedido(id);
-                        if (pedido != null) {
-                            sendResponse(exchange, 200, gson.toJson(pedido));
+                        PedidoResponse pedidoResp = service.obtenerPedido(id);
+                        if (pedidoResp != null) {
+                            sendResponse(exchange, 200, gson.toJson(pedidoResp));
                         } else {
                             sendResponse(exchange, 404, "{\"mensaje\":\"No encontrado\"}");
                         }

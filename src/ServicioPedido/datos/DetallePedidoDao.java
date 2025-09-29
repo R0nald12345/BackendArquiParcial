@@ -1,4 +1,3 @@
-
 package ServicioPedido.datos;
 
 import ServicioPedido.datos.entidades.DetallePedido;
@@ -12,10 +11,10 @@ import java.util.List;
  */
 public class DetallePedidoDao {
 
-     public boolean crear(DetallePedido dp) throws Exception {
+    public boolean crear(DetallePedido dp) throws Exception {
         String sql = "INSERT INTO detallePedido(pedido_id, producto_id, cantidad, precio) VALUES(?, ?, ?, ?)";
         try (Connection con = Conexion.getConnection();
-             PreparedStatement ps = con.prepareStatement(sql)) {
+                PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, dp.getPedidoId());
             ps.setInt(2, dp.getProductoId());
             ps.setInt(3, dp.getCantidad());
@@ -26,28 +25,33 @@ public class DetallePedidoDao {
 
     public List<DetallePedido> listarPorPedido(int pedidoId) throws Exception {
         List<DetallePedido> lista = new ArrayList<>();
-        String sql = "SELECT * FROM detallePedido WHERE pedido_id = ?";
+        String sql = "SELECT dp.pedido_id, dp.producto_id, dp.cantidad, dp.precio, p.nombre AS productoNombre "
+                + "FROM detallePedido dp "
+                + "JOIN Producto p ON dp.producto_id = p.id "
+                + "WHERE dp.pedido_id = ?";
         try (Connection con = Conexion.getConnection();
-             PreparedStatement ps = con.prepareStatement(sql)) {
+                PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, pedidoId);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                DetallePedido dp = new DetallePedido();
-                dp.setPedidoId(rs.getInt("pedido_id"));
-                dp.setProductoId(rs.getInt("producto_id"));
-                dp.setCantidad(rs.getInt("cantidad"));
-                dp.setPrecio(rs.getDouble("precio"));
+                DetallePedido dp = new DetallePedido(
+                        rs.getInt("pedido_id"),
+                        rs.getInt("producto_id"),
+                        rs.getInt("cantidad"),
+                        rs.getDouble("precio"),
+                        rs.getString("productoNombre") // ✅ ahora sí viene el nombre
+                );
                 lista.add(dp);
             }
         }
         return lista;
     }
-    
-       // 🔹 Nuevo método que te faltaba
+
+    // 🔹 Nuevo método que te faltaba
     public boolean eliminarPorPedido(int pedidoId) throws Exception {
         String sql = "DELETE FROM detallePedido WHERE pedido_id = ?";
         try (Connection con = Conexion.getConnection();
-             PreparedStatement ps = con.prepareStatement(sql)) {
+                PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, pedidoId);
             return ps.executeUpdate() > 0;
         }

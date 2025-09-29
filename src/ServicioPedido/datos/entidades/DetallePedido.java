@@ -10,6 +10,15 @@ public class DetallePedido {
     private int productoId;
     private int cantidad;
     private double precio;
+    private String productoNombre;
+
+    public DetallePedido(int pedidoId, int productoId, int cantidad, double precio, String productoNombre) {
+        this.pedidoId = pedidoId;
+        this.productoId = productoId;
+        this.cantidad = cantidad;
+        this.precio = precio;
+        this.productoNombre = productoNombre;
+    }
 
     // Getters y Setters
     public int getPedidoId() {
@@ -43,4 +52,13 @@ public class DetallePedido {
     public void setPrecio(double precio) {
         this.precio = precio;
     }
+
+    public String getProductoNombre() {
+        return productoNombre;
+    }
+
+    public void setProductoNombre(String productoNombre) {
+        this.productoNombre = productoNombre;
+    }
+
 }

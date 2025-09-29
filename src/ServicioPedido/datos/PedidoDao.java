@@ -52,6 +52,11 @@ public class PedidoDao {
                 p.setClienteId(rs.getInt("cliente_id"));
                 p.setRepartidorId(rs.getInt("repartidor_id"));
                 p.setMetodoPagoId(rs.getInt("metodoPago_id"));
+
+                // 🔹 Traer detalles del pedido
+                DetallePedidoDao dpDao = new DetallePedidoDao();
+                p.setDetalles(dpDao.listarPorPedido(id));  // ✅ ahora sí se llena la lista
+
                 return p;
             }
         }

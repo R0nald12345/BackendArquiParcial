@@ -18,7 +18,16 @@ public class Pedido {
     private double monto;
     private int clienteId;
     private Integer repartidorId;
+
+    public List<DetallePedido> getDetalles() {
+        return detalles;
+    }
+
+    public void setDetalles(List<DetallePedido> detalles) {
+        this.detalles = detalles;
+    }
     private int metodoPagoId;
+    private List<DetallePedido> detalles;
 
     // Getters y Setters
     public int getId() {
