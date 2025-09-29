@@ -1,29 +1,21 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ServicioPedido.negocio.controller;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import ServicioPedido.negocio.PedidoN;
 import ServicioPedido.datos.entidades.Pedido;
+import ServicioPedido.datos.entidades.DetallePedido;
+import ServicioPedido.datos.entidades.PedidoRequest;
 import com.google.gson.Gson;
 import java.io.OutputStream;
 import java.io.InputStreamReader;
 import java.io.BufferedReader;
 import java.util.List;
 
-/**
- *
- * @author USER
- */
 public class PedidoController {
 
     // Handler para /pedidos (GET listar, POST crear)
     public static class PedidoHandler implements HttpHandler {
-
         @Override
         public void handle(HttpExchange exchange) {
             try {
@@ -37,9 +29,9 @@ public class PedidoController {
 
                 } else if ("POST".equals(exchange.getRequestMethod())) {
                     BufferedReader reader = new BufferedReader(new InputStreamReader(exchange.getRequestBody()));
-                    Pedido pedido = gson.fromJson(reader, Pedido.class);
+                    PedidoRequest req = gson.fromJson(reader, PedidoRequest.class);
 
-                    boolean ok = service.crearPedido(pedido);
+                    boolean ok = service.crearPedido(req.pedido, req.detalles);
                     String response = gson.toJson(ok ? "Pedido creado" : "Error al crear");
                     sendResponse(exchange, ok ? 201 : 400, response);
 
@@ -54,7 +46,6 @@ public class PedidoController {
 
     // Handler para /pedidos/{id} (GET, PUT, DELETE)
     public static class PedidoIdHandler implements HttpHandler {
-
         @Override
         public void handle(HttpExchange exchange) {
             try {
@@ -81,9 +72,10 @@ public class PedidoController {
 
                     case "PUT":
                         BufferedReader reader = new BufferedReader(new InputStreamReader(exchange.getRequestBody()));
-                        Pedido pedidoActualizar = gson.fromJson(reader, Pedido.class);
-                        pedidoActualizar.setId(id);
-                        boolean actualizado = service.actualizarPedido(pedidoActualizar);
+                        PedidoRequest reqActualizar = gson.fromJson(reader, PedidoRequest.class);
+                        reqActualizar.pedido.setId(id);
+
+                        boolean actualizado = service.actualizarPedido(reqActualizar.pedido, reqActualizar.detalles);
                         sendResponse(exchange, actualizado ? 200 : 400,
                                 gson.toJson(actualizado ? "Pedido actualizado" : "Error al actualizar"));
                         break;

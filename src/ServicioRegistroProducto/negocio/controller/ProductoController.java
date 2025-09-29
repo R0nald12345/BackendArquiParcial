@@ -19,18 +19,7 @@ import java.util.List;
  */
 public class ProductoController {
 
-//    public static void main(String[] args) throws Exception {
-//        HttpServer server = HttpServer.create(new InetSocketAddress(8082), 0);
-//
-//        // Endpoints REST
-//        server.createContext("/productos", new ProductoHandler()); // GET lista, POST crear
-//        server.createContext("/productos/", new ProductoIdHandler()); // GET/{id}, PUT/{id}, DELETE/{id}
-//
-//        server.setExecutor(null);
-//        server.start();
-//        System.out.println("Servidor Producto iniciado en http://localhost:8082/productos");
-//    }
-    // Handler para /productos (GET listar, POST crear)
+
     static class ProductoHandler implements HttpHandler {
 
         @Override

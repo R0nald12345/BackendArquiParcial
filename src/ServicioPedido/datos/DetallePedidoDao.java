@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package ServicioPedido.datos;
 
 import ServicioPedido.datos.entidades.DetallePedido;
@@ -45,5 +41,15 @@ public class DetallePedidoDao {
             }
         }
         return lista;
+    }
+    
+       // 🔹 Nuevo método que te faltaba
+    public boolean eliminarPorPedido(int pedidoId) throws Exception {
+        String sql = "DELETE FROM detallePedido WHERE pedido_id = ?";
+        try (Connection con = Conexion.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, pedidoId);
+            return ps.executeUpdate() > 0;
+        }
     }
 }

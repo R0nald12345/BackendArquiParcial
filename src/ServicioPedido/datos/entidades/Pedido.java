@@ -17,8 +17,8 @@ public class Pedido {
     private String fecha;
     private double monto;
     private int clienteId;
-    private int repartidorId;
-    private List<DetallePedido> detalles;
+    private Integer repartidorId;
+    private int metodoPagoId;
 
     // Getters y Setters
     public int getId() {
@@ -53,19 +53,19 @@ public class Pedido {
         this.clienteId = clienteId;
     }
 
-    public int getRepartidorId() {
+    public Integer getRepartidorId() {
         return repartidorId;
     }
 
-    public void setRepartidorId(int repartidorId) {
+    public void setRepartidorId(Integer repartidorId) {
         this.repartidorId = repartidorId;
     }
 
-    public List<DetallePedido> getDetalles() {
-        return detalles;
+    public int getMetodoPagoId() {
+        return metodoPagoId;
     }
 
-    public void setDetalles(List<DetallePedido> detalles) {
-        this.detalles = detalles;
+    public void setMetodoPagoId(int metodoPagoId) {
+        this.metodoPagoId = metodoPagoId;
     }
 }

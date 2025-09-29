@@ -6,59 +6,40 @@
 package ServicioPedido.datos;
 
 import ServicioPedido.datos.entidades.Pedido;
-import ServicioPedido.datos.entidades.DetallePedido;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class PedidoDao {
 
-    public boolean crear(Pedido pedido) throws Exception {
-        String sqlPedido = "INSERT INTO Pedido(monto, cliente_id, repartidor_id) VALUES(?, ?, ?)";
-        String sqlDetalle = "INSERT INTO detallePedido(pedido_id, producto_id, cantidad, precio) VALUES(?, ?, ?, ?)";
-        Connection con = null;
+    public int crear(Pedido pedido) throws Exception {
+        String sql = "INSERT INTO Pedido(monto, cliente_id, repartidor_id, metodoPago_id) VALUES(?, ?, ?, ?)";
+        try (Connection con = Conexion.getConnection();
+                PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
-        try {
-            con = Conexion.getConnection();
-            con.setAutoCommit(false);
-
-            // Insertar pedido
-            PreparedStatement ps = con.prepareStatement(sqlPedido, Statement.RETURN_GENERATED_KEYS);
             ps.setDouble(1, pedido.getMonto());
             ps.setInt(2, pedido.getClienteId());
-            ps.setInt(3, pedido.getRepartidorId());
+
+            // si no hay repartidor, seteamos null
+            if (pedido.getRepartidorId() == null) {
+                ps.setNull(3, java.sql.Types.INTEGER);
+            } else {
+                ps.setInt(3, pedido.getRepartidorId());
+            }
+
+            ps.setInt(4, pedido.getMetodoPagoId());
             ps.executeUpdate();
 
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
-                int pedidoId = rs.getInt(1);
-
-                // Insertar detalles
-                for (DetallePedido dp : pedido.getDetalles()) {
-                    PreparedStatement psd = con.prepareStatement(sqlDetalle);
-                    psd.setInt(1, pedidoId);
-                    psd.setInt(2, dp.getProductoId());
-                    psd.setInt(3, dp.getCantidad());
-                    psd.setDouble(4, dp.getPrecio());
-                    psd.executeUpdate();
-                }
+                return rs.getInt(1);
             }
-            con.commit();
-            return true;
-        } catch (Exception e) {
-            if (con != null) {
-                con.rollback();
-            }
-            throw e;
-        } finally {
-            if (con != null) {
-                con.close();
-            }
+            return -1;
         }
     }
 
     public Pedido obtenerPorId(int id) throws Exception {
-        String sql = "SELECT * FROM Pedido WHERE id = ?";
+        String sql = "SELECT * FROM Pedido WHERE id=?";
         try (Connection con = Conexion.getConnection();
                 PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, id);
@@ -70,11 +51,7 @@ public class PedidoDao {
                 p.setMonto(rs.getDouble("monto"));
                 p.setClienteId(rs.getInt("cliente_id"));
                 p.setRepartidorId(rs.getInt("repartidor_id"));
-
-                // detalles
-                DetallePedidoDao dpDao = new DetallePedidoDao();
-                p.setDetalles(dpDao.listarPorPedido(id));
-
+                p.setMetodoPagoId(rs.getInt("metodoPago_id"));
                 return p;
             }
         }
@@ -94,6 +71,7 @@ public class PedidoDao {
                 p.setMonto(rs.getDouble("monto"));
                 p.setClienteId(rs.getInt("cliente_id"));
                 p.setRepartidorId(rs.getInt("repartidor_id"));
+                p.setMetodoPagoId(rs.getInt("metodoPago_id"));
                 lista.add(p);
             }
         }
@@ -101,56 +79,24 @@ public class PedidoDao {
     }
 
     public boolean actualizar(Pedido pedido) throws Exception {
-        String sql = "UPDATE Pedido SET monto=?, cliente_id=?, repartidor_id=? WHERE id=?";
-        Connection con = null;
-        try {
-            con = Conexion.getConnection();
-            con.setAutoCommit(false);
-
-            // Actualizar cabecera
-            PreparedStatement ps = con.prepareStatement(sql);
+        String sql = "UPDATE Pedido SET monto=?, cliente_id=?, repartidor_id=?, metodoPago_id=? WHERE id=?";
+        try (Connection con = Conexion.getConnection();
+                PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setDouble(1, pedido.getMonto());
             ps.setInt(2, pedido.getClienteId());
             ps.setInt(3, pedido.getRepartidorId());
-            ps.setInt(4, pedido.getId());
-            ps.executeUpdate();
-
-            // Eliminar detalles previos
-            PreparedStatement psDel = con.prepareStatement("DELETE FROM detallePedido WHERE pedido_id=?");
-            psDel.setInt(1, pedido.getId());
-            psDel.executeUpdate();
-
-            // Insertar nuevos detalles
-            String sqlDetalle = "INSERT INTO detallePedido(pedido_id, producto_id, cantidad, precio) VALUES(?, ?, ?, ?)";
-            for (DetallePedido dp : pedido.getDetalles()) {
-                PreparedStatement psd = con.prepareStatement(sqlDetalle);
-                psd.setInt(1, pedido.getId());
-                psd.setInt(2, dp.getProductoId());
-                psd.setInt(3, dp.getCantidad());
-                psd.setDouble(4, dp.getPrecio());
-                psd.executeUpdate();
-            }
-
-            con.commit();
-            return true;
-        } catch (Exception e) {
-            if (con != null) {
-                con.rollback();
-            }
-            throw e;
-        } finally {
-            if (con != null) {
-                con.close();
-            }
+            ps.setInt(4, pedido.getMetodoPagoId());
+            ps.setInt(5, pedido.getId());
+            return ps.executeUpdate() > 0;
         }
     }
-    
+
     public boolean eliminar(int id) throws Exception {
-    String sql = "DELETE FROM Pedido WHERE id=?";
-    try (Connection con = Conexion.getConnection();
-         PreparedStatement ps = con.prepareStatement(sql)) {
-        ps.setInt(1, id);
-        return ps.executeUpdate() > 0;
+        String sql = "DELETE FROM Pedido WHERE id=?";
+        try (Connection con = Conexion.getConnection();
+                PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            return ps.executeUpdate() > 0;
+        }
     }
-}
 }
